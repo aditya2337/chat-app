@@ -1,0 +1,11 @@
+/*
+  action types
+*/
+
+let chatroom = {
+  START_FETCHING_MESSAGES: 'START_FETCHING_MESSAGES',
+  RECEIVED_MESSAGES: 'RECEIVED_MESSAGES',
+  UPDATE_MESSAGES_HEIGHT: 'UPDATE_MESSAGES_HEIGHT'
+}
+
+export default chatroom
