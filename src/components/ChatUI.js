@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 
 import Messages from '../containers/Messages'
 import Input from '../containers/Input'
-import { sendMessage } from '../redux/actions'
+import { sendMessage, addLocalStorage } from '../redux/actions'
 
 const mapStateToProps = (state) => ({
   chatHeight: state.chatroom.meta.height,
-  user: state.user
+  user: state.user,
+  isModifyingLocal: state.chatroom.meta.isModifyingLocal
 })
 
 class ChatUI extends Component {
@@ -16,7 +17,11 @@ class ChatUI extends Component {
     inputHeight: 0
   }
 
-  componentDidMount () {
+  componentWillMount () {
+    console.log(localStorage.getItem('user'));
+    if (localStorage.getItem('user') === null) {
+      this.props.dispatch(addLocalStorage(this.props.user.name))
+    }
     this.scrollToBottom(false)
   }
 
@@ -56,8 +61,14 @@ class ChatUI extends Component {
   }
 
   render () {
-    return (
+
+    console.log(this.props.isModifyingLocal)
+    const items = (this.props.isModifyingLocal) ? (
       <div>
+        Loading ...
+      </div>
+    ) : (
+      <div className='width-75'>
         <h4 styleName='h-center' style={{paddingTop: 20}}>
           Global Chatroom
         </h4>
@@ -71,7 +82,14 @@ class ChatUI extends Component {
         </div>
       </div>
     )
+    return (
+      <div className='flex justify-center items-center'>
+        {items}
+      </div>
+    )
   }
 }
+
+
 
 export default connect(mapStateToProps)(ChatUI)

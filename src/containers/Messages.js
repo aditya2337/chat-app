@@ -6,12 +6,13 @@ import { updateMessagesHeight } from '../redux/actions'
 
 const mapStateToProps = (state) => ({
   messages: state.chatroom.messages,
-  isFetching: state.chatroom.meta.isFetching
+  isFetching: state.chatroom.meta.isFetching,
+  isModifyingLocal: state.chatroom.meta.isModifyingLocal
 })
 
 const Messages = connect(
     mapStateToProps
-)(({ messages, isFetching, dispatch }) => {
+)(({ messages, isFetching, dispatch, isModifyingLocal }) => {
   if (isFetching) {
     return (
       <div style={{paddingTop: 50,
@@ -20,9 +21,20 @@ const Messages = connect(
       </div>
     )
   } else {
-    return <MessageList messages={messages}
-      style={{minHeight: 100}}
-      onLayout={(event) => dispatch(updateMessagesHeight(event))} />
+    if (isModifyingLocal) {
+      return (
+        <div style={{paddingTop: 50,
+          paddingBottom: 50}}>
+          <div>Loading ...</div>
+        </div>
+      )
+    } else {
+      return (
+        <MessageList messages={messages}
+          style={{minHeight: 100}}
+          onLayout={(event) => dispatch(updateMessagesHeight(event))} />
+      )
+    }
   }
 })
 

@@ -10,7 +10,7 @@ import ChatUI from './components/ChatUI'
 import LoginUI from './components/LoginUI'
 import rootReducer from './redux/reducers'
 
-import { fetchMessages, checkUserExists } from './redux/actions'
+import { fetchMessages, checkUserExists, clearLocalStorage } from './redux/actions'
 
 const store = createStore(
     rootReducer,
@@ -21,18 +21,36 @@ const store = createStore(
 
 const LoginOrChat = connect(
     (state) => ({
-      authorized: state.user.authorized
+      authorized: state.user.authorized,
+      isDeleting: state.chatroom.meta.isDeleting
     })
-)(({ authorized, dispatch }) => {
+)(({ authorized, isDeleting, dispatch }) => {
   if (authorized) {
-    return (<ChatUI />)
+    if (isDeleting) {
+      return (
+        <div>Loading ...</div>
+      )
+    } else {
+      return (<ChatUI />)
+    }
   } else {
-    dispatch(checkUserExists())
-    return (<LoginUI />)
+    if (isDeleting) {
+      return (
+        <div>Loading ...</div>
+      )
+    } else {
+      dispatch(checkUserExists())
+      return (<LoginUI />)
+    }
   }
 })
 
 class App extends Component {
+
+  componentWillMount () {
+    store.dispatch(clearLocalStorage())
+  }
+
   render () {
     return (
       <Provider store={store}>

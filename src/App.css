@@ -18,6 +18,14 @@
   font-size: large;
 }
 
+.width-75 {
+  width: 75vw;
+}
+
+.reverse-row {
+  flex-direction: row-reverse;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

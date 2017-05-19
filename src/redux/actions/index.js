@@ -53,6 +53,46 @@ export const sendMessage = (text, user) => {
   }
 }
 
+export const startModifyingLocal = () => ({
+  type: 'START_MOIFYING_LOCAL'
+})
+
+export const startDeletingLocal = () => ({
+  type: 'START_DELETING_LOCAL'
+})
+
+export const stopDeletingLocal = () => ({
+  type: 'STOP_DELETING_LOCAL'
+})
+
+export const stopModifyingLocal = () => ({
+  type: 'STOP_MOIFYING_LOCAL'
+})
+
+export const clearLocalStorage = () => {
+  return function (dispatch) {
+    let myFirstPromise = new Promise((resolve, reject) => {
+      dispatch(startDeletingLocal())
+      setTimeout(function () {
+        resolve(localStorage.clear())
+      }, 2000)
+    })
+    myFirstPromise.then((success) => dispatch(stopDeletingLocal()))
+  }
+}
+
+export const addLocalStorage = (name) => {
+  return function (dispatch) {
+    let myFirstPromise = new Promise((resolve, reject) => {
+      dispatch(startModifyingLocal())
+      setTimeout(function () {
+        resolve(localStorage.setItem('user', name))
+      }, 2000)
+    })
+    myFirstPromise.then((success) => dispatch(stopModifyingLocal()))
+  }
+}
+
 export const startFetchingMessages = () => ({
   type: START_FETCHING_MESSAGES
 })
