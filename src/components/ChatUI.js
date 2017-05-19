@@ -52,7 +52,7 @@ class ChatUI extends Component {
   }
 
   sendMessage = (text) => {
-    return sendMessage(text, this.props.user)
+    this.props.dispatch(sendMessage(text, this.props.user))
   }
 
   render () {

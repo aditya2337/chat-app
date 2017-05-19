@@ -3,8 +3,8 @@ import moment from 'moment'
 
 const Message = ({ msg }) => (
   <div>
-    <img styleName='small-avatar top'
-      src={{ uri: msg.author.avatar }} />
+    <img style={{maxHeight: '50px', maxWidth: '50px'}}
+      src={msg.author.avatar} />
     <div styleName='vertical'>
       <div styleName='horizontal space-between'>
         <em>{msg.author.name}</em>
@@ -19,7 +19,7 @@ const MessageList = ({ messages, onLayout }) => (
   <ul>
     {messages.map((val, index) => (
       <li>
-        <Message msg={val} />
+        <Message msg={val} key={index} />
       </li>
     ))}
   </ul>

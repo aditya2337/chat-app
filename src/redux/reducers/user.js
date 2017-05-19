@@ -4,7 +4,8 @@ const {
   SET_USER_NAME,
   SET_USER_AVATAR,
   USER_START_AUTHORIZING,
-  USER_AUTHORIZED
+  USER_AUTHORIZED,
+  USER_NO_EXIST
 } = actionTypes
 
 const initialState = {
@@ -32,6 +33,11 @@ const user = (state = initialState, action) => {
       return Object.assign({}, state, {
         authorizing: false,
         authorized: true
+      })
+    case USER_NO_EXIST:
+      return Object.assign({}, state, {
+        authorizing: false,
+        authorized: false
       })
     default:
       return state

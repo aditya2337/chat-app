@@ -5,7 +5,8 @@ import { login } from '../redux/actions';
 
 class LoginButton extends Component {
   onLogin = () => {
-    this.props.dispatch(login());
+    const obj = {name: 'aditya'}
+    this.props.dispatch(login(1));
   }
 
   render() {

@@ -45,6 +45,7 @@ export const sendMessage = (text, user) => {
     const newMsgRef = firebase.database()
     .ref('messages')
     .push()
+    console.log(msg)
     msg.id = newMsgRef.key
     newMsgRef.set(msg)
 
@@ -101,10 +102,13 @@ export const updateMessagesHeight = (event) => {
 // User actions
 //
 
-export const setUserName = (name) => ({
-  type: SET_USER_NAME,
-  name
-})
+export const setUserName = (name) => {
+  console.log('dispatched')
+  return {
+    type: SET_USER_NAME,
+    name
+  }
+}
 
 export const setUserAvatar = (avatar) => ({
   type: SET_USER_AVATAR,
@@ -127,12 +131,13 @@ export const checkUserExists = (id) => {
     .ref(`users/${id}`)
     .once('value', (snapshot) => {
       const val = snapshot.val()
-      if (val === null) {
-        dispatch(userNoExist())
-      } else {
+      if (val) {
         dispatch(setUserName(val.name))
         dispatch(setUserAvatar(val.avatar))
         startChatting(dispatch)
+      } else {
+        console.log(val)
+        dispatch(userNoExist())
       }
     }))
     .catch(err => console.log(err))
@@ -147,7 +152,7 @@ export const login = (id) => {
     .signInAnonymously()
     .then(() => {
       const { name, avatar } = getState().user
-
+      console.log(getState().user)
       firebase.database()
       .ref(`users/${id}`)
       .set({

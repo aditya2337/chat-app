@@ -12,7 +12,7 @@ class Input extends Component {
   }
 
   onChangeText = (text) => {
-    this.setState({text: text})
+    this.setState({ text: text.target.value })
   };
 
   onSubmitEditing = () => {
@@ -45,6 +45,12 @@ class Input extends Component {
     }
   }
 
+  _handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.props.submitAction(this.state.text)
+    }
+  }
+
   render() {
     return (
       <input placeholder={this.props.placeholder}
@@ -54,6 +60,7 @@ class Input extends Component {
         value={this.state.text}
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        onKeyPress={this._handleKeyPress}
         ref="input"/>
     )
   }
