@@ -11,7 +11,7 @@ class LoginButton extends Component {
 
   render() {
     return (
-      <button styleName="light" onClick={this.onLogin}>
+      <button className='bw0 br2 bg-dwyl-teal pa1 w-100 pointer white fw1 tc ttu tracked' onClick={this.onLogin}>
         <p>Start Chatting</p>
       </button>
     )

@@ -46,7 +46,7 @@ class Input extends Component {
   }
 
   _handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.props.purpose === 'chat') {
       this.props.submitAction(this.state.text)
     }
   }
@@ -59,6 +59,7 @@ class Input extends Component {
         onLayout={this.onLayout}
         value={this.state.text}
         onFocus={this.onFocus}
+        className='pa3 w-100 tc box'
         onBlur={this.onBlur}
         onKeyPress={this._handleKeyPress}
         ref="input"/>

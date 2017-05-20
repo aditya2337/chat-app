@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+body, html {
+  height: 100%;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -16,6 +20,18 @@
 
 .App-intro {
   font-size: large;
+}
+
+.bg-dwyl-teal {
+  background-color: #4DB6AC;
+}
+
+.width-50 {
+  width: 50vw;
+}
+
+.box {
+  box-sizing: border-box;
 }
 
 .width-75 {

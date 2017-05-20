@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Messages from '../containers/Messages'
 import Input from '../containers/Input'
 import { sendMessage, addLocalStorage } from '../redux/actions'
+import Spinner from 'react-spinkit'
 
 const mapStateToProps = (state) => ({
   chatHeight: state.chatroom.meta.height,
@@ -61,15 +62,13 @@ class ChatUI extends Component {
   }
 
   render () {
-
-    console.log(this.props.isModifyingLocal)
     const items = (this.props.isModifyingLocal) ? (
-      <div>
-        Loading ...
+      <div className=' h-100 flex justify-center items-center'>
+        <Spinner spinnerName='cube-grid' />
       </div>
     ) : (
       <div className='width-75'>
-        <h4 styleName='h-center' style={{paddingTop: 20}}>
+        <h4 className='tc' style={{paddingTop: 20}}>
           Global Chatroom
         </h4>
         <div ref='scroll'
@@ -78,12 +77,13 @@ class ChatUI extends Component {
           <Input onLayout={this.onInputLayout}
             submitAction={this.sendMessage}
             ref='input'
+            purpose='chat'
             placeholder='Say something cool ...' />
         </div>
       </div>
     )
     return (
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center h-100'>
         {items}
       </div>
     )
