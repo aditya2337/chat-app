@@ -7,7 +7,7 @@ A small chat app made with React js for practice and learning purposes.
 * Redux
 * Firebase
 
-**Demo of app: **[Chat4all](http://chat4all.surge.sh/)
+**Demo of app:** [Chat4all](http://chat4all.surge.sh/)
 
 > This is a global chat room with no security or filters as of now.
 
