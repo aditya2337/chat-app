@@ -48,6 +48,9 @@ class Input extends Component {
   _handleKeyPress = (e) => {
     if (e.key === 'Enter' && this.props.purpose === 'chat') {
       this.props.submitAction(this.state.text)
+      this.setState({
+        text: ''
+      })
     }
   }
 
