@@ -14,46 +14,12 @@ const mapStateToProps = (state) => ({
 
 class ChatUI extends Component {
   state = {
-    scrollViewHeight: 0,
     inputHeight: 0
   }
 
   componentWillMount () {
-    console.log(localStorage.getItem('user'));
     if (localStorage.getItem('user') === null) {
       this.props.dispatch(addLocalStorage(this.props.user.name))
-    }
-    this.scrollToBottom(false)
-  }
-
-  componentDidUpdate () {
-    this.scrollToBottom()
-  }
-
-  onScrollViewLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-
-    this.setState({
-      scrollViewHeight: layout.height
-    });
-  }
-
-  onInputLayout = (event) => {
-    const layout = event.nativeEvent.layout;
-
-    this.setState({
-      inputHeight: layout.height
-    });
-  }
-
-  scrollToBottom (animate = true) {
-    const { scrollViewHeight, inputHeight } = this.state,
-      { chatHeight } = this.props
-
-    const scrollTo = chatHeight - scrollViewHeight + inputHeight
-
-    if (scrollTo > 0) {
-      this.refs.scroll.scrollToPosition(0, scrollTo, animate)
     }
   }
 
@@ -71,10 +37,9 @@ class ChatUI extends Component {
         <h4 className='tc' style={{paddingTop: 20}}>
           Global Chatroom
         </h4>
-        <div ref='scroll'
-          onLayout={this.onScrollViewLayout}>
+        <div>
           <Messages />
-          <Input onLayout={this.onInputLayout}
+          <Input
             submitAction={this.sendMessage}
             ref='input'
             purpose='chat'

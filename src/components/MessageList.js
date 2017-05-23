@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import moment from 'moment'
+import React, { Component } from 'react';
+import moment from 'moment';
 
 const Message = ({ msg, position }) => (
   <div className={`flex ${position}`}>
@@ -17,20 +17,40 @@ const Message = ({ msg, position }) => (
       </div>
     </div>
   </div>
-)
+);
 
-const MessageList = ({ messages, onLayout }) => (
-  <ul className='list overflow-scroll overflow-x-hidden ba vh-75 pa3'>
-    {messages.map((val, index) => (
-      <li className='mb4'>
-        {(index % 2 === 0) ? (
-          <Message msg={val} key={index} position='' />
-        ) : (
-          <Message msg={val} key={index} position='flex-row-reverse' />
-        )}
-      </li>
-    ))}
-  </ul>
-)
+class MessageList extends Component {
 
-export default MessageList
+  componentDidMount () {
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    this.scrollToBottom()
+  }
+
+  scrollToBottom = () => {
+    const objDiv = document.getElementById('message-list');
+    if (objDiv) {
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  }
+
+  render () {
+    const { messages } = this.props;
+    return (
+      <ul className='list overflow-scroll overflow-x-hidden ba vh-75 pa3' id='message-list'>
+        {messages.map((val, index) => (
+          <li className='mb4' key={index}>
+            {(index % 2 === 0) ? (
+              <Message msg={val} position='' />
+            ) : (
+              <Message msg={val} key={index} position='flex-row-reverse' />
+            )}
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+export default MessageList;
